@@ -28,26 +28,33 @@
   <link href="assets/css/main.css" rel="stylesheet">
 
   <style>
-    /* ── Solo CSS para componentes que no existen en main.css ── */
-
-    /* Preview iframe en tarjetas de clientes */
-    .client-preview {
-      position: relative;
-      width: 100%; height: 180px;
-      overflow: hidden; background: #12151e;
+    /* ── Tarjetas de clientes con imagen real ── */
+    .client-card {
+      display: block; text-decoration: none; color: inherit;
+      border-radius: 6px; overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s;
     }
-    .client-preview iframe {
-      width: 200%; height: 200%;
-      transform: scale(0.5); transform-origin: top left;
-      border: none; pointer-events: none;
-      transition: transform 0.9s ease;
+    .client-card:hover {
+      transform: translateY(-4px);
+      text-decoration: none; color: inherit;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.45);
     }
-    .client-card:hover .client-preview iframe {
-      transform: scale(0.5) translateY(-8%);
+    .client-thumb {
+      position: relative; width: 100%; height: 200px; overflow: hidden;
     }
-    .client-preview-fade {
+    .client-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top;
+      transition: transform 0.6s ease, filter 0.4s;
+      filter: brightness(0.85);
+    }
+    .client-card:hover .client-thumb img {
+      transform: scale(1.05) translateY(-3%);
+      filter: brightness(1);
+    }
+    .client-thumb-fade {
       position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(to bottom, transparent 25%, rgba(0,0,0,0.85) 100%);
+      background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.7) 100%);
     }
     .live-badge {
       position: absolute; top: 8px; right: 8px; z-index: 2;
@@ -63,18 +70,7 @@
     }
     @keyframes liveblink { 0%,100%{opacity:1} 50%{opacity:0.25} }
 
-    .client-card {
-      display: block; text-decoration: none; color: inherit;
-      border-radius: 6px; overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s;
-    }
-    .client-card:hover {
-      transform: translateY(-4px);
-      text-decoration: none; color: inherit;
-      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
-    }
-
-    /* Grid portafolio asimétrico */
+    /* ── Grid portafolio asimétrico ── */
     .pf-grid {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
@@ -89,25 +85,19 @@
     .pf-grid .pf-card:nth-child(5) { grid-column: span 4; grid-row: span 2; }
     .pf-grid .pf-card:nth-child(6) { grid-column: span 12; grid-row: span 2; }
 
-    .pf-frame { position: absolute; inset: 0; overflow: hidden; }
-    .pf-frame iframe {
-      width: 250%; height: 250%;
-      transform: scale(0.4); transform-origin: top left;
-      border: none; pointer-events: none;
-      transition: transform 1s ease, filter 0.5s;
+    /* Imagen de fondo con zoom en hover */
+    .pf-bg {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: top center;
+      transition: transform 0.6s ease, filter 0.5s;
       filter: brightness(0.75);
+      transform: scale(1);
     }
-    .pf-card:hover .pf-frame iframe {
-      transform: scale(0.4) translateY(-8%);
+    .pf-card:hover .pf-bg {
+      transform: scale(1.06) translateY(-3%);
       filter: brightness(1);
     }
-    .pf-emoji-fallback {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 3.5rem; background: #12151e;
-      opacity: 0; transition: opacity 0.3s; z-index: 1;
-    }
-    .pf-emoji-fallback.show { opacity: 1; }
 
     .pf-overlay {
       position: absolute; inset: 0; z-index: 2;
@@ -117,6 +107,7 @@
     .pf-card:hover .pf-overlay {
       background: linear-gradient(to top, rgba(0,0,0,0.97) 0%, rgba(0,0,0,0.6) 48%, rgba(0,0,0,0.1) 80%);
     }
+
     .pf-topbar {
       position: absolute; top: 0; left: 0; right: 0; height: 3px;
       background: var(--accent-color, #18d26e); z-index: 4;
@@ -129,9 +120,7 @@
       position: absolute; bottom: 0; left: 0; right: 0;
       z-index: 3; padding: 1rem 1.25rem;
     }
-    .pf-info h3 {
-      font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0;
-    }
+    .pf-info h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0; }
     .pf-desc {
       font-size: 0.8rem; color: rgba(255,255,255,0.65); line-height: 1.5;
       max-height: 0; overflow: hidden; opacity: 0; margin-top: 0.3rem;
@@ -152,7 +141,7 @@
     .pf-visit:hover { background: #18d26e; color: #000; }
     .pf-card.hidden { display: none !important; }
 
-    /* Filtros — misma estética que los filtros de portfolio.html */
+    /* Filtros */
     .pf-filters-row {
       display: flex; flex-wrap: wrap; gap: 0.5rem;
       margin-bottom: 1.5rem; justify-content: center;
@@ -164,13 +153,9 @@
       background: transparent; color: rgba(255,255,255,0.5); cursor: pointer;
       transition: all 0.25s;
     }
-    .pf-filters-row button:hover {
-      border-color: var(--accent-color,#18d26e);
-      color: var(--accent-color,#18d26e);
-    }
+    .pf-filters-row button:hover { border-color: var(--accent-color,#18d26e); color: var(--accent-color,#18d26e); }
     .pf-filters-row button.active {
-      background: var(--accent-color,#18d26e);
-      border-color: var(--accent-color,#18d26e);
+      background: var(--accent-color,#18d26e); border-color: var(--accent-color,#18d26e);
       color: #000; font-weight: 700;
     }
 
@@ -195,7 +180,7 @@
     }
     .pay-value.plain { font-family: inherit; font-size: 0.9rem; color: #fff; }
 
-    /* Responsive grid */
+    /* Responsive */
     @media (max-width: 992px) {
       .pf-grid { grid-template-columns: repeat(2,1fr); grid-auto-rows: 220px; }
       .pf-grid .pf-card { grid-column: span 1 !important; grid-row: span 1 !important; }
@@ -269,9 +254,9 @@
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
             <a href="https://davana-group.odoo.com/" target="_blank" class="client-card">
               <div class="portfolio-info" style="padding:0; overflow:hidden; border-radius:6px;">
-                <div class="client-preview">
-                  <iframe src="https://davana-group.odoo.com/" loading="lazy" sandbox="allow-same-origin" title="Davana Group"></iframe>
-                  <div class="client-preview-fade"></div>
+                <div class="client-thumb">
+                  <img src="assets/img/davana.jpg" alt="Davana Group">
+                  <div class="client-thumb-fade"></div>
                   <span class="live-badge">Live</span>
                 </div>
                 <div class="p-3">
@@ -290,9 +275,9 @@
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
             <a href="https://www.lazonain.com/" target="_blank" class="client-card">
               <div class="portfolio-info" style="padding:0; overflow:hidden; border-radius:6px;">
-                <div class="client-preview">
-                  <iframe src="https://www.lazonain.com/" loading="lazy" sandbox="allow-same-origin" title="La Zona In"></iframe>
-                  <div class="client-preview-fade"></div>
+                <div class="client-thumb">
+                  <img src="assets/img/lazonain.jpg" alt="La Zona In">
+                  <div class="client-thumb-fade"></div>
                   <span class="live-badge">Live</span>
                 </div>
                 <div class="p-3">
@@ -312,7 +297,7 @@
     </section>
 
     <!-- ══════════════════════════════════════
-         PORTAFOLIO COMPLETO
+         PORTAFOLIO
     ══════════════════════════════════════ -->
     <section id="portafolio" class="portfolio section dark-background">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -338,10 +323,7 @@
 
           <!-- Blue Sharks Trading -->
           <div class="pf-card" data-cat="comunidad fintech plataforma">
-            <div class="pf-frame">
-              <iframe src="https://bluesharkstrading.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="Blue Sharks Trading"></iframe>
-              <div class="pf-emoji-fallback">🦈</div>
-            </div>
+            <div class="pf-bg" style="background-image:url('assets/img/bluesharks.jpg')"></div>
             <div class="pf-overlay"></div>
             <div class="pf-topbar"></div>
             <a class="pf-visit" href="https://bluesharkstrading.netlify.app/" target="_blank"><i class="bi bi-arrow-up-right"></i></a>
@@ -358,10 +340,7 @@
 
           <!-- FutBetCoin -->
           <div class="pf-card" data-cat="fintech plataforma">
-            <div class="pf-frame">
-              <iframe src="https://futbetcoin.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="FutBetCoin"></iframe>
-              <div class="pf-emoji-fallback">⚽</div>
-            </div>
+            <div class="pf-bg" style="background-image:url('assets/img/futbetcoin.jpg')"></div>
             <div class="pf-overlay"></div>
             <div class="pf-topbar"></div>
             <a class="pf-visit" href="https://futbetcoin.netlify.app/" target="_blank"><i class="bi bi-arrow-up-right"></i></a>
@@ -378,10 +357,7 @@
 
           <!-- Glowy Skin -->
           <div class="pf-card" data-cat="ecommerce">
-            <div class="pf-frame">
-              <iframe src="https://glowyskin.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="Glowy Skin"></iframe>
-              <div class="pf-emoji-fallback">✨</div>
-            </div>
+            <div class="pf-bg" style="background-image:url('assets/img/glowy.jpg')"></div>
             <div class="pf-overlay"></div>
             <div class="pf-topbar"></div>
             <a class="pf-visit" href="https://glowyskin.netlify.app/" target="_blank"><i class="bi bi-arrow-up-right"></i></a>
@@ -398,10 +374,7 @@
 
           <!-- Groove Street -->
           <div class="pf-card" data-cat="ecommerce">
-            <div class="pf-frame">
-              <iframe src="https://groovestreet.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="Groove Street"></iframe>
-              <div class="pf-emoji-fallback">🌿</div>
-            </div>
+            <div class="pf-bg" style="background-image:url('assets/img/groove.jpg')"></div>
             <div class="pf-overlay"></div>
             <div class="pf-topbar"></div>
             <a class="pf-visit" href="https://groovestreet.netlify.app/" target="_blank"><i class="bi bi-arrow-up-right"></i></a>
@@ -417,10 +390,7 @@
 
           <!-- Davana Group -->
           <div class="pf-card" data-cat="plataforma">
-            <div class="pf-frame">
-              <iframe src="https://davana-group.odoo.com/" loading="lazy" sandbox="allow-same-origin" title="Davana Group"></iframe>
-              <div class="pf-emoji-fallback">🏢</div>
-            </div>
+            <div class="pf-bg" style="background-image:url('assets/img/davana.jpg')"></div>
             <div class="pf-overlay"></div>
             <div class="pf-topbar"></div>
             <a class="pf-visit" href="https://davana-group.odoo.com/" target="_blank"><i class="bi bi-arrow-up-right"></i></a>
@@ -437,10 +407,7 @@
 
           <!-- La Zona In -->
           <div class="pf-card" data-cat="plataforma ecommerce">
-            <div class="pf-frame">
-              <iframe src="https://lazonain.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="La Zona In"></iframe>
-              <div class="pf-emoji-fallback">🏠</div>
-            </div>
+            <div class="pf-bg" style="background-image:url('assets/img/lazonain.jpg')"></div>
             <div class="pf-overlay"></div>
             <div class="pf-topbar"></div>
             <a class="pf-visit" href="https://lazonain.netlify.app/" target="_blank"><i class="bi bi-arrow-up-right"></i></a>
@@ -461,7 +428,6 @@
 
     <!-- ══════════════════════════════════════
          CONTACTO & MÉTODOS DE PAGO
-         — estructura original del template —
     ══════════════════════════════════════ -->
     <section id="contacto" class="portfolio-details section">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -473,7 +439,6 @@
 
         <div class="row gy-4">
 
-          <!-- Métodos de pago — usa portfolio-info igual que el original -->
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
             <div class="portfolio-info">
               <h3>Métodos de Pago</h3>
@@ -515,13 +480,11 @@
             </div>
           </div>
 
-          <!-- Descripción + redes — usa portfolio-description igual que el original -->
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
             <div class="portfolio-description">
               <h2>Escríbeme para confirmar datos de pago</h2>
               <p>Gracias por tu interés. Estoy disponible para cualquier consulta y con gusto exploraré cómo podemos trabajar juntos para lograr tus objetivos.</p>
 
-              <!-- social-links: misma clase que usa el hero del index.html -->
               <div class="social-links mt-3 mb-4">
                 <a href="https://api.whatsapp.com/send?phone=573507894900" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
                 <a href="https://t.me/+573507894900" title="Telegram"><i class="bi bi-telegram"></i></a>
@@ -580,19 +543,6 @@
   <script src="assets/js/main.js"></script>
 
   <script>
-    /* Iframe fallback — si CORS bloquea el sitio, muestra emoji */
-    document.querySelectorAll('iframe').forEach(iframe => {
-      setTimeout(() => {
-        try {
-          const doc = iframe.contentDocument || iframe.contentWindow?.document;
-          if (!doc || !doc.body || doc.body.innerHTML.trim() === '') throw new Error();
-        } catch(e) {
-          const fb = iframe.parentElement.querySelector('.pf-emoji-fallback');
-          if (fb) { fb.classList.add('show'); iframe.style.opacity = '0'; }
-        }
-      }, 3000);
-    });
-
     /* Portfolio filter */
     const pfSpans = [[7,2],[5,2],[4,2],[4,2],[4,2],[12,2]];
 

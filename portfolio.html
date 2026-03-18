@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Más Info — Eisen Campos</title>
-  <meta name="description" content="Servicios, portafolio, clientes y métodos de contacto de Eisen Campos.">
+  <title>Portfolio — Eisen Campos</title>
+  <meta name="description" content="">
   <meta name="keywords" content="">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Fonts (igual que el resto del sitio) -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -28,191 +28,50 @@
   <link href="assets/css/main.css" rel="stylesheet">
 
   <style>
-    /* ─────────────────────────────────────────────
-       Solo CSS para componentes nuevos que no
-       existen en main.css. Todo lo demás usa las
-       clases del template tal cual.
-    ───────────────────────────────────────────── */
-
-    /* Vista previa iframe en tarjetas de clientes */
-    .client-preview {
+    /* Thumbnail iframe preview — solo para este componente nuevo */
+    .pf-thumb {
       position: relative;
       width: 100%;
-      height: 180px;
+      padding-bottom: 62%;   /* aspect ratio ~16:10 */
       overflow: hidden;
-      background: #1a1a2e;
+      background: #12151e;
+      border-radius: 4px 4px 0 0;
     }
-    .client-preview iframe {
-      width: 200%;
-      height: 200%;
-      transform: scale(0.5);
+    .pf-thumb iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 250%; height: 250%;
+      transform: scale(0.4);
       transform-origin: top left;
       border: none;
       pointer-events: none;
-      transition: transform 0.8s ease;
+      transition: transform 1s ease, filter 0.5s;
+      filter: brightness(0.8);
     }
-    .client-card:hover .client-preview iframe {
-      transform: scale(0.5) translateY(-8%);
-    }
-    .client-preview-fade {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, transparent 30%, rgba(26,26,46,0.95) 100%);
-      z-index: 1;
-    }
-    .live-badge {
-      position: absolute;
-      top: 8px; right: 8px; z-index: 2;
-      font-size: 0.65rem;
-      padding: 2px 8px; border-radius: 20px;
-      background: rgba(0,0,0,0.5);
-      color: #18d26e;
-      border: 1px solid rgba(24,210,110,0.4);
-      font-weight: 600; letter-spacing: 0.08em;
-      display: flex; align-items: center; gap: 4px;
-    }
-    .live-badge::before {
-      content: ''; width: 5px; height: 5px;
-      border-radius: 50%; background: #18d26e;
-      animation: blink 1.5s infinite;
-    }
-    @keyframes blink {
-      0%,100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-    .client-card {
-      display: block; text-decoration: none; color: inherit;
-      border-radius: 8px; overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s;
-    }
-    .client-card:hover { transform: translateY(-5px); text-decoration: none; color: inherit; }
-
-    /* Grid portafolio asimétrico */
-    .pf-grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      grid-auto-rows: 210px;
-      gap: 1rem;
-    }
-    .pf-grid .pf-card { position: relative; overflow: hidden; border-radius: 8px; }
-    .pf-grid .pf-card:nth-child(1) { grid-column: span 7; grid-row: span 2; }
-    .pf-grid .pf-card:nth-child(2) { grid-column: span 5; grid-row: span 2; }
-    .pf-grid .pf-card:nth-child(3) { grid-column: span 4; grid-row: span 2; }
-    .pf-grid .pf-card:nth-child(4) { grid-column: span 4; grid-row: span 2; }
-    .pf-grid .pf-card:nth-child(5) { grid-column: span 4; grid-row: span 2; }
-    .pf-grid .pf-card:nth-child(6) { grid-column: span 12; grid-row: span 2; }
-
-    .pf-frame { position: absolute; inset: 0; overflow: hidden; }
-    .pf-frame iframe {
-      width: 250%; height: 250%;
-      transform: scale(0.4); transform-origin: top left;
-      border: none; pointer-events: none;
-      transition: transform 1s ease, filter 0.6s;
-      filter: brightness(0.75);
-    }
-    .pf-card:hover .pf-frame iframe {
+    .pf-thumb:hover iframe {
       transform: scale(0.4) translateY(-8%);
       filter: brightness(1);
     }
-    .pf-emoji-fallback {
+    .pf-thumb-emoji {
       position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center;
-      font-size: 3.5rem; background: #12151e;
+      font-size: 3rem; background: #12151e;
       opacity: 0; transition: opacity 0.3s;
+      z-index: 1;
     }
-    .pf-emoji-fallback.show { opacity: 1; }
-
-    .pf-overlay {
-      position: absolute; inset: 0; z-index: 2;
-      background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 40%, transparent 70%);
-      transition: background 0.3s;
-    }
-    .pf-card:hover .pf-overlay {
-      background: linear-gradient(to top, rgba(0,0,0,0.97) 0%, rgba(0,0,0,0.65) 50%, rgba(0,0,0,0.1) 80%);
-    }
-    .pf-topbar {
-      position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: var(--accent-color, #18d26e); z-index: 4;
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.4s ease;
-    }
-    .pf-card:hover .pf-topbar { transform: scaleX(1); }
-
-    .pf-info {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      z-index: 3; padding: 1rem 1.25rem;
-    }
-    .pf-info h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0; }
-    .pf-info .pf-desc {
-      font-size: 0.8rem; color: rgba(255,255,255,0.65); line-height: 1.5;
-      max-height: 0; overflow: hidden; opacity: 0;
-      transition: max-height 0.4s ease, opacity 0.4s; margin-top: 0.3rem;
-    }
-    .pf-card:hover .pf-desc { max-height: 80px; opacity: 1; }
-
-    .pf-visit {
-      position: absolute; top: 0.75rem; right: 0.75rem; z-index: 5;
-      width: 32px; height: 32px; border-radius: 50%;
-      background: rgba(24,210,110,0.15); border: 1px solid rgba(24,210,110,0.35);
-      color: #18d26e; display: flex; align-items: center; justify-content: center;
-      text-decoration: none; font-size: 0.85rem;
-      opacity: 0; transform: scale(0.6);
-      transition: opacity 0.3s, transform 0.3s ease, background 0.3s;
-    }
-    .pf-card:hover .pf-visit { opacity: 1; transform: scale(1); }
-    .pf-visit:hover { background: #18d26e; color: #000; }
-    .pf-card.hidden { display: none !important; }
-
-    /* Filtros */
-    .pf-filters {
-      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;
-    }
-    .pf-filters button {
-      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em;
-      text-transform: uppercase; padding: 0.38rem 1rem; border-radius: 50px;
-      border: 1px solid rgba(255,255,255,0.15);
-      background: transparent; color: rgba(255,255,255,0.5); cursor: pointer;
-      transition: all 0.25s;
-    }
-    .pf-filters button:hover { border-color: var(--accent-color,#18d26e); color: var(--accent-color,#18d26e); }
-    .pf-filters button.active {
-      background: var(--accent-color,#18d26e); border-color: var(--accent-color,#18d26e);
-      color: #000; font-weight: 700;
-    }
-
-    /* Métodos de pago */
-    .pay-item {
-      display: flex; align-items: flex-start; gap: 0.85rem;
-      padding: 0.85rem 0; border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .pay-item:last-child { border-bottom: none; }
-    .pay-icon {
-      width: 36px; height: 36px; border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; flex-shrink: 0; background: rgba(255,255,255,0.07);
-    }
-    .pay-label {
-      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: 0.15rem;
-    }
-    .pay-value {
-      font-family: 'Courier New', monospace; font-size: 0.82rem;
-      color: rgba(255,255,255,0.85); word-break: break-all;
-    }
-    .pay-value.normal { font-family: inherit; font-size: 0.9rem; color: #fff; }
-
-    /* Responsive portafolio */
-    @media (max-width: 992px) {
-      .pf-grid { grid-template-columns: repeat(2,1fr); grid-auto-rows: 230px; }
-      .pf-grid .pf-card { grid-column: span 1 !important; grid-row: span 1 !important; }
-    }
-    @media (max-width: 576px) {
-      .pf-grid { grid-template-columns: 1fr; grid-auto-rows: 250px; }
+    .pf-thumb-emoji.show { opacity: 1; }
+    /* Gradiente fade en la parte inferior del thumb */
+    .pf-thumb::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
+      background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.55));
+      z-index: 2; pointer-events: none;
     }
   </style>
+
 </head>
 
-<body class="portfolio-details-page">
+<body class="portfolio-page">
 
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
@@ -224,8 +83,8 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="resume.html">Resume</a></li>
-          <li><a href="services.html">Certifications</a></li>
-          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="services.html">certifications</a></li>
+          <li><a href="portfolio.html" class="active">Portfolio</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -235,14 +94,14 @@
 
   <main class="main">
 
-    <!-- Page Title — estructura exacta del template -->
+    <!-- Page Title -->
     <div class="page-title" data-aos="fade">
       <div class="heading">
         <div class="container">
           <div class="row d-flex justify-content-center text-center">
             <div class="col-lg-8">
-              <h1>¿Interesado?</h1>
-              <p class="mb-0">Si deseas más información sobre mis servicios, productos o cómo puedo aportar a tus proyectos, no dudes en contactarme. Estoy disponible para discutir cómo puedo ayudarte a alcanzar tus objetivos.</p>
+              <h1>Portafolio</h1>
+              <p class="mb-0">En esta sección, presento una selección de proyectos y productos desarrollados a lo largo de mi carrera. Estos incluyen aplicaciones y soluciones SaaS, productos IoT, estrategias de trading, cursos de formación, así como proyectos de análisis de datos y ciencia de datos. Cada uno refleja mi capacidad para aplicar tecnologías avanzadas y metodologías estadísticas para resolver problemas reales y generar valor en diversos sectores.</p>
             </div>
           </div>
         </div>
@@ -251,297 +110,124 @@
         <div class="container">
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li class="current">Más Info</li>
+            <li class="current">Portfolio</li>
           </ol>
         </div>
       </nav>
-    </div>
+    </div><!-- End Page Title -->
 
-    <!-- ═══════════════════════════════════════
-         CLIENTES
-    ═══════════════════════════════════════ -->
-    <section id="clientes" class="section">
-      <div class="container" data-aos="fade-up">
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio section">
+      <div class="container">
+        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
 
-        <div class="section-title">
-          <h2>Clientes</h2>
-          <p>Empresas que ya confían en nosotros</p>
-        </div>
+          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+            <li data-filter="*" class="filter-active">Todos</li>
+            <li data-filter=".filter-plataforma">Plataformas</li>
+            <li data-filter=".filter-ecommerce">E-commerce</li>
+            <li data-filter=".filter-comunidad">Comunidades</li>
+            <li data-filter=".filter-fintech">Fintech / IA</li>
+          </ul>
 
-        <div class="row gy-4">
+          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
 
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <a href="https://davana-group.odoo.com/" target="_blank" class="client-card">
-              <div class="portfolio-info" style="padding:0; border-radius:8px; overflow:hidden;">
-                <div class="client-preview">
+            <!-- Blue Sharks Trading -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-comunidad filter-fintech filter-plataforma">
+              <div class="portfolio-content h-100">
+                <div class="pf-thumb">
+                  <iframe src="https://bluesharkstrading.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="Blue Sharks Trading"></iframe>
+                  <div class="pf-thumb-emoji">🦈</div>
+                </div>
+                <div class="portfolio-info">
+                  <h4>Blue Sharks Trading</h4>
+                  <p>Comunidad profesional de trading: copy trading, señales en vivo, mentoría, calculadora de riesgo, agentes IA y mundo virtual 3D.</p>
+                  <a href="https://bluesharkstrading.netlify.app/" title="Blue Sharks Trading" target="_blank" class="preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- FutBetCoin -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-fintech filter-plataforma">
+              <div class="portfolio-content h-100">
+                <div class="pf-thumb">
+                  <iframe src="https://futbetcoin.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="FutBetCoin"></iframe>
+                  <div class="pf-thumb-emoji">⚽</div>
+                </div>
+                <div class="portfolio-info">
+                  <h4>FutBetCoin</h4>
+                  <p>Plataforma de pronósticos deportivos con IA. Análisis predictivo, estadísticas avanzadas y señales de apuestas en vivo.</p>
+                  <a href="https://futbetcoin.netlify.app/" title="FutBetCoin" target="_blank" class="preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Glowy Skin -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-ecommerce">
+              <div class="portfolio-content h-100">
+                <div class="pf-thumb">
+                  <iframe src="https://glowyskin.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="Glowy Skin"></iframe>
+                  <div class="pf-thumb-emoji">✨</div>
+                </div>
+                <div class="portfolio-info">
+                  <h4>Glowy Skin</h4>
+                  <p>Tienda online de maquillaje y skincare de alta gama. Diseño editorial de lujo, catálogo premium y experiencia de compra inmersiva.</p>
+                  <a href="https://glowyskin.netlify.app/" title="Glowy Skin" target="_blank" class="preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Groove Street -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-ecommerce">
+              <div class="portfolio-content h-100">
+                <div class="pf-thumb">
+                  <iframe src="https://groovestreet.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="Groove Street"></iframe>
+                  <div class="pf-thumb-emoji">🌿</div>
+                </div>
+                <div class="portfolio-info">
+                  <h4>Groove Street</h4>
+                  <p>Smoke shop online con catálogo de productos, sistema de filtros, carrito de compras y experiencia de marca urbana auténtica.</p>
+                  <a href="https://groovestreet.netlify.app/" title="Groove Street" target="_blank" class="preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Davana Group -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-plataforma">
+              <div class="portfolio-content h-100">
+                <div class="pf-thumb">
                   <iframe src="https://davana-group.odoo.com/" loading="lazy" sandbox="allow-same-origin" title="Davana Group"></iframe>
-                  <div class="client-preview-fade"></div>
-                  <span class="live-badge">Live</span>
+                  <div class="pf-thumb-emoji">🏢</div>
                 </div>
-                <div class="p-3">
-                  <ul class="mb-2">
-                    <li><strong>Tipo:</strong> ERP / CRM · Puerto Rico</li>
-                    <li><strong>Proyecto:</strong> Davana Group</li>
-                    <li><strong>Web:</strong> <span style="color:var(--accent-color,#18d26e)">davana-group.odoo.com ↗</span></li>
-                  </ul>
-                  <p class="mb-0" style="font-size:0.9rem;">Implementación de APP empresarial, automatización de procesos operativos, gestión de información e integración de servicios en plataforma Odoo.</p>
+                <div class="portfolio-info">
+                  <h4>Davana Group</h4>
+                  <p>Implementación ERP/CRM en Odoo para aseguradora en Puerto Rico. Automatización de procesos, integración de servicios y soporte.</p>
+                  <a href="https://davana-group.odoo.com/" title="Davana Group" target="_blank" class="preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
-            </a>
-          </div>
+            </div>
 
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <a href="https://www.lazonain.com/" target="_blank" class="client-card">
-              <div class="portfolio-info" style="padding:0; border-radius:8px; overflow:hidden;">
-                <div class="client-preview">
-                  <iframe src="https://www.lazonain.com/" loading="lazy" sandbox="allow-same-origin" title="La Zona In"></iframe>
-                  <div class="client-preview-fade"></div>
-                  <span class="live-badge">Live</span>
+            <!-- La Zona In -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-plataforma filter-ecommerce">
+              <div class="portfolio-content h-100">
+                <div class="pf-thumb">
+                  <iframe src="https://lazonain.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="La Zona In"></iframe>
+                  <div class="pf-thumb-emoji">🏠</div>
                 </div>
-                <div class="p-3">
-                  <ul class="mb-2">
-                    <li><strong>Tipo:</strong> Web &amp; Inversión Inmobiliaria · Bogotá</li>
-                    <li><strong>Proyecto:</strong> La Zona In</li>
-                    <li><strong>Web:</strong> <span style="color:var(--accent-color,#18d26e)">lazonain.com ↗</span></li>
-                  </ul>
-                  <p class="mb-0" style="font-size:0.9rem;">Desarrollo de sitio web, estrategia de contenido en redes sociales y modelos de inversión en finca raíz para agencia inmobiliaria.</p>
+                <div class="portfolio-info">
+                  <h4>La Zona In</h4>
+                  <p>Sitio web para agencia inmobiliaria en Bogotá con estrategia de contenido en redes, modelos de inversión en finca raíz y transformación digital.</p>
+                  <a href="https://lazonain.netlify.app/" title="La Zona In" target="_blank" class="preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
-            </a>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════
-         PORTAFOLIO
-    ═══════════════════════════════════════ -->
-    <section id="portafolio" class="section dark-background">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Portafolio</h2>
-          <p>Proyectos que hemos construido</p>
-        </div>
-
-        <p class="text-center mb-4" style="color:rgba(255,255,255,0.55); font-size:0.95rem;">
-          Desde plataformas fintech y comunidades de trading hasta e-commerce de lujo.<br>
-          Pasa el cursor sobre cada proyecto para ver más.
-        </p>
-
-        <div class="pf-filters justify-content-center" data-aos="fade-up" data-aos-delay="50">
-          <button class="active" onclick="filterPF('all',this)">Todos</button>
-          <button onclick="filterPF('plataforma',this)">Plataformas</button>
-          <button onclick="filterPF('ecommerce',this)">E-commerce</button>
-          <button onclick="filterPF('comunidad',this)">Comunidades</button>
-          <button onclick="filterPF('fintech',this)">Fintech / IA</button>
-        </div>
-
-        <div class="pf-grid mt-4" id="pfGrid" data-aos="fade-up" data-aos-delay="100">
-
-          <!-- Blue Sharks Trading -->
-          <div class="pf-card" data-cat="comunidad fintech plataforma">
-            <div class="pf-frame">
-              <iframe src="https://bluesharkstrading.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="Blue Sharks Trading"></iframe>
-              <div class="pf-emoji-fallback">🦈</div>
             </div>
-            <div class="pf-overlay"></div>
-            <div class="pf-topbar"></div>
-            <a class="pf-visit" href="https://bluesharkstrading.netlify.app/" target="_blank"><i class="bi bi-arrow-up-right"></i></a>
-            <div class="pf-info">
-              <div class="mb-1">
-                <span class="badge" style="background:rgba(24,210,110,0.15);color:#18d26e;font-size:.62rem;">Comunidad</span>
-                <span class="badge" style="background:rgba(24,210,110,0.15);color:#18d26e;font-size:.62rem;">Fintech</span>
-                <span class="badge" style="background:rgba(24,210,110,0.15);color:#18d26e;font-size:.62rem;">IA</span>
-              </div>
-              <h3>Blue Sharks Trading</h3>
-              <p class="pf-desc">Copy trading, señales en vivo, mentoría, calculadora de riesgo, agentes IA, chatbot y mundo virtual 3D.</p>
-            </div>
-          </div>
 
-          <!-- FutBetCoin -->
-          <div class="pf-card" data-cat="fintech plataforma">
-            <div class="pf-frame">
-              <iframe src="https://futbetcoin.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="FutBetCoin"></iframe>
-              <div class="pf-emoji-fallback">⚽</div>
-            </div>
-            <div class="pf-overlay"></div>
-            <div class="pf-topbar"></div>
-            <a class="pf-visit" href="https://futbetcoin.netlify.app/" target="_blank"><i class="bi bi-arrow-up-right"></i></a>
-            <div class="pf-info">
-              <div class="mb-1">
-                <span class="badge" style="background:rgba(24,210,110,0.15);color:#18d26e;font-size:.62rem;">IA</span>
-                <span class="badge" style="background:rgba(24,210,110,0.15);color:#18d26e;font-size:.62rem;">Fintech</span>
-                <span class="badge" style="background:rgba(24,210,110,0.15);color:#18d26e;font-size:.62rem;">Deportes</span>
-              </div>
-              <h3>FutBetCoin</h3>
-              <p class="pf-desc">Pronósticos deportivos con IA. Análisis predictivo, estadísticas avanzadas y señales en vivo.</p>
-            </div>
-          </div>
-
-          <!-- Glowy Skin -->
-          <div class="pf-card" data-cat="ecommerce">
-            <div class="pf-frame">
-              <iframe src="https://glowyskin.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="Glowy Skin"></iframe>
-              <div class="pf-emoji-fallback">✨</div>
-            </div>
-            <div class="pf-overlay"></div>
-            <div class="pf-topbar"></div>
-            <a class="pf-visit" href="https://glowyskin.netlify.app/" target="_blank"><i class="bi bi-arrow-up-right"></i></a>
-            <div class="pf-info">
-              <div class="mb-1">
-                <span class="badge" style="background:rgba(24,210,110,0.15);color:#18d26e;font-size:.62rem;">E-commerce</span>
-                <span class="badge" style="background:rgba(24,210,110,0.15);color:#18d26e;font-size:.62rem;">Lujo</span>
-                <span class="badge" style="background:rgba(24,210,110,0.15);color:#18d26e;font-size:.62rem;">Belleza</span>
-              </div>
-              <h3>Glowy Skin</h3>
-              <p class="pf-desc">Tienda online de maquillaje y skincare de alta gama. Diseño editorial de lujo y experiencia inmersiva.</p>
-            </div>
-          </div>
-
-          <!-- Groove Street -->
-          <div class="pf-card" data-cat="ecommerce">
-            <div class="pf-frame">
-              <iframe src="https://groovestreet.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="Groove Street"></iframe>
-              <div class="pf-emoji-fallback">🌿</div>
-            </div>
-            <div class="pf-overlay"></div>
-            <div class="pf-topbar"></div>
-            <a class="pf-visit" href="https://groovestreet.netlify.app/" target="_blank"><i class="bi bi-arrow-up-right"></i></a>
-            <div class="pf-info">
-              <div class="mb-1">
-                <span class="badge" style="background:rgba(24,210,110,0.15);color:#18d26e;font-size:.62rem;">E-commerce</span>
-                <span class="badge" style="background:rgba(24,210,110,0.15);color:#18d26e;font-size:.62rem;">Smoke Shop</span>
-              </div>
-              <h3>Groove Street</h3>
-              <p class="pf-desc">Smoke shop online con catálogo, filtros, carrito de compras y marca urbana auténtica.</p>
-            </div>
-          </div>
-
-          <!-- Davana Group -->
-          <div class="pf-card" data-cat="plataforma">
-            <div class="pf-frame">
-              <iframe src="https://davana-group.odoo.com/" loading="lazy" sandbox="allow-same-origin" title="Davana Group"></iframe>
-              <div class="pf-emoji-fallback">🏢</div>
-            </div>
-            <div class="pf-overlay"></div>
-            <div class="pf-topbar"></div>
-            <a class="pf-visit" href="https://davana-group.odoo.com/" target="_blank"><i class="bi bi-arrow-up-right"></i></a>
-            <div class="pf-info">
-              <div class="mb-1">
-                <span class="badge" style="background:rgba(24,210,110,0.15);color:#18d26e;font-size:.62rem;">ERP</span>
-                <span class="badge" style="background:rgba(24,210,110,0.15);color:#18d26e;font-size:.62rem;">CRM</span>
-                <span class="badge" style="background:rgba(24,210,110,0.15);color:#18d26e;font-size:.62rem;">Puerto Rico</span>
-              </div>
-              <h3>Davana Group</h3>
-              <p class="pf-desc">ERP/CRM en Odoo para aseguradora. Automatización de procesos operativos e integración de servicios.</p>
-            </div>
-          </div>
-
-          <!-- La Zona In -->
-          <div class="pf-card" data-cat="plataforma ecommerce">
-            <div class="pf-frame">
-              <iframe src="https://lazonain.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="La Zona In"></iframe>
-              <div class="pf-emoji-fallback">🏠</div>
-            </div>
-            <div class="pf-overlay"></div>
-            <div class="pf-topbar"></div>
-            <a class="pf-visit" href="https://lazonain.netlify.app/" target="_blank"><i class="bi bi-arrow-up-right"></i></a>
-            <div class="pf-info">
-              <div class="mb-1">
-                <span class="badge" style="background:rgba(24,210,110,0.15);color:#18d26e;font-size:.62rem;">Inmobiliario</span>
-                <span class="badge" style="background:rgba(24,210,110,0.15);color:#18d26e;font-size:.62rem;">Web</span>
-                <span class="badge" style="background:rgba(24,210,110,0.15);color:#18d26e;font-size:.62rem;">Bogotá</span>
-              </div>
-              <h3>La Zona In</h3>
-              <p class="pf-desc">Web para agencia inmobiliaria con modelos de inversión en finca raíz y transformación digital.</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════
-         CONTACTO & PAGOS
-    ═══════════════════════════════════════ -->
-    <section id="contacto" class="section">
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="section-title">
-          <h2>Contacto &amp; Pagos</h2>
-          <p>Hablemos y pongamos el proyecto en marcha</p>
-        </div>
-
-        <div class="row gy-4">
-
-          <!-- Métodos de pago -->
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="portfolio-info">
-              <h3>Métodos de Pago</h3>
-
-              <div class="pay-item">
-                <div class="pay-icon"><i class="bi bi-currency-dollar"></i></div>
-                <div>
-                  <div class="pay-label">Transferencia</div>
-                  <div class="pay-value normal">USD · Solicitar datos por WhatsApp</div>
-                </div>
-              </div>
-
-              <div class="pay-item">
-                <div class="pay-icon" style="color:#9945ff;">◎</div>
-                <div>
-                  <div class="pay-label">Solana (SOL)</div>
-                  <div class="pay-value">cYh4JbB98a...BuVxEDC767</div>
-                </div>
-              </div>
-
-              <div class="pay-item">
-                <div class="pay-icon" style="color:#f7931a;">₿</div>
-                <div>
-                  <div class="pay-label">Bitcoin (BTC)</div>
-                  <div class="pay-value">bc1qkuff52p...mptgk8yxlz0</div>
-                </div>
-              </div>
-
-              <div class="pay-item">
-                <div class="pay-icon" style="color:#25d366;"><i class="bi bi-whatsapp"></i></div>
-                <div>
-                  <div class="pay-label">WhatsApp</div>
-                  <div class="pay-value normal">
-                    <a href="https://api.whatsapp.com/send?phone=573507894900" style="color:#25d366;">+57 350 789 4900</a>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Mensaje + redes -->
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="portfolio-description">
-              <h2>Escríbeme para confirmar datos de pago</h2>
-              <p>Gracias por tu interés. Estoy disponible para cualquier consulta y con gusto exploraré cómo podemos trabajar juntos para alcanzar tus objetivos.</p>
-
-              <!-- Social links — misma clase que usa el hero del index -->
-              <div class="social-links mt-3 mb-4">
-                <a href="https://api.whatsapp.com/send?phone=573507894900" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
-                <a href="https://t.me/+573507894900" title="Telegram"><i class="bi bi-telegram"></i></a>
-                <a href="https://co.linkedin.com/in/eisencampos" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                <a href="https://gitlab.igac.gov.co/eisen.campos" title="GitLab"><i class="bi bi-github"></i></a>
-              </div>
-
-              <a href="https://api.whatsapp.com/send?phone=573507894900"
-                 class="btn btn-success d-flex align-items-center gap-2 justify-content-center"
-                 style="font-weight:700; border-radius:50px; padding:.75rem 1.5rem;"
-                 target="_blank">
-                <i class="bi bi-whatsapp fs-5"></i>
-                Iniciar conversación en WhatsApp
-              </a>
-            </div>
-          </div>
-
+          </div><!-- End Portfolio Container -->
         </div>
       </div>
     </section>
@@ -567,12 +253,9 @@
     </div>
   </footer>
 
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
-    <i class="bi bi-arrow-up-short"></i>
-  </a>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
   <div id="preloader"></div>
 
-  <!-- Vendor JS — exactamente los mismos del template -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
@@ -586,40 +269,18 @@
   <script src="assets/js/main.js"></script>
 
   <script>
-    /* ── Iframe fallback (CORS bloqueado = muestra emoji) ── */
-    document.querySelectorAll('iframe').forEach(iframe => {
+    /* Iframe fallback — si CORS bloquea, muestra el emoji */
+    document.querySelectorAll('.pf-thumb iframe').forEach(iframe => {
       setTimeout(() => {
         try {
           const doc = iframe.contentDocument || iframe.contentWindow?.document;
           if (!doc || !doc.body || doc.body.innerHTML.trim() === '') throw new Error();
         } catch(e) {
-          const fb = iframe.parentElement.querySelector('.pf-emoji-fallback');
-          if (fb) { fb.classList.add('show'); iframe.style.opacity = '0'; }
+          const emoji = iframe.parentElement.querySelector('.pf-thumb-emoji');
+          if (emoji) { emoji.classList.add('show'); iframe.style.opacity = '0'; }
         }
       }, 3000);
     });
-
-    /* ── Portfolio filter ── */
-    const pfSpans = [[7,2],[5,2],[4,2],[4,2],[4,2],[12,2]];
-
-    function filterPF(cat, btn) {
-      document.querySelectorAll('.pf-filters button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('.pf-card').forEach(card => {
-        const cats = card.dataset.cat || '';
-        card.classList.toggle('hidden', cat !== 'all' && !cats.includes(cat));
-      });
-      respan();
-    }
-
-    function respan() {
-      const visible = [...document.querySelectorAll('.pf-card:not(.hidden)')];
-      visible.forEach((card, i) => {
-        const [col, row] = pfSpans[i % pfSpans.length];
-        card.style.gridColumn = `span ${col}`;
-        card.style.gridRow    = `span ${row}`;
-      });
-    }
   </script>
 
 </body>

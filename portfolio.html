@@ -28,44 +28,32 @@
   <link href="assets/css/main.css" rel="stylesheet">
 
   <style>
-    /* Thumbnail iframe preview — solo para este componente nuevo */
+    /* Thumbnail con imagen real — zoom en hover */
     .pf-thumb {
       position: relative;
       width: 100%;
-      padding-bottom: 62%;   /* aspect ratio ~16:10 */
+      padding-bottom: 62%;
       overflow: hidden;
       background: #12151e;
-      border-radius: 4px 4px 0 0;
     }
-    .pf-thumb iframe {
+    .pf-thumb img {
       position: absolute;
       top: 0; left: 0;
-      width: 250%; height: 250%;
-      transform: scale(0.4);
-      transform-origin: top left;
-      border: none;
-      pointer-events: none;
-      transition: transform 1s ease, filter 0.5s;
-      filter: brightness(0.8);
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top;
+      transition: transform 0.6s ease, filter 0.4s;
+      filter: brightness(0.85);
     }
-    .pf-thumb:hover iframe {
-      transform: scale(0.4) translateY(-8%);
+    .portfolio-content:hover .pf-thumb img {
+      transform: scale(1.05) translateY(-3%);
       filter: brightness(1);
     }
-    .pf-thumb-emoji {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 3rem; background: #12151e;
-      opacity: 0; transition: opacity 0.3s;
-      z-index: 1;
-    }
-    .pf-thumb-emoji.show { opacity: 1; }
-    /* Gradiente fade en la parte inferior del thumb */
     .pf-thumb::after {
       content: '';
-      position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
-      background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.55));
-      z-index: 2; pointer-events: none;
+      position: absolute; bottom: 0; left: 0; right: 0; height: 45%;
+      background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.6));
+      z-index: 1; pointer-events: none;
     }
   </style>
 
@@ -114,7 +102,7 @@
           </ol>
         </div>
       </nav>
-    </div><!-- End Page Title -->
+    </div>
 
     <!-- Portfolio Section -->
     <section id="portfolio" class="portfolio section">
@@ -135,13 +123,12 @@
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-comunidad filter-fintech filter-plataforma">
               <div class="portfolio-content h-100">
                 <div class="pf-thumb">
-                  <iframe src="https://bluesharkstrading.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="Blue Sharks Trading"></iframe>
-                  <div class="pf-thumb-emoji">🦈</div>
+                  <img src="assets/img/bluesharks.jpg" alt="Blue Sharks Trading">
                 </div>
                 <div class="portfolio-info">
                   <h4>Blue Sharks Trading</h4>
                   <p>Comunidad profesional de trading: copy trading, señales en vivo, mentoría, calculadora de riesgo, agentes IA y mundo virtual 3D.</p>
-                  <a href="https://bluesharkstrading.netlify.app/" title="Blue Sharks Trading" target="_blank" class="preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="assets/img/bluesharks.jpg" title="Blue Sharks Trading" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                   <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
@@ -151,13 +138,12 @@
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-fintech filter-plataforma">
               <div class="portfolio-content h-100">
                 <div class="pf-thumb">
-                  <iframe src="https://futbetcoin.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="FutBetCoin"></iframe>
-                  <div class="pf-thumb-emoji">⚽</div>
+                  <img src="assets/img/futbetcoin.jpg" alt="FutBetCoin">
                 </div>
                 <div class="portfolio-info">
                   <h4>FutBetCoin</h4>
                   <p>Plataforma de pronósticos deportivos con IA. Análisis predictivo, estadísticas avanzadas y señales de apuestas en vivo.</p>
-                  <a href="https://futbetcoin.netlify.app/" title="FutBetCoin" target="_blank" class="preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="assets/img/futbetcoin.jpg" title="FutBetCoin" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                   <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
@@ -167,13 +153,12 @@
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-ecommerce">
               <div class="portfolio-content h-100">
                 <div class="pf-thumb">
-                  <iframe src="https://glowyskin.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="Glowy Skin"></iframe>
-                  <div class="pf-thumb-emoji">✨</div>
+                  <img src="assets/img/glowy.jpg" alt="Glowy Skin">
                 </div>
                 <div class="portfolio-info">
                   <h4>Glowy Skin</h4>
                   <p>Tienda online de maquillaje y skincare de alta gama. Diseño editorial de lujo, catálogo premium y experiencia de compra inmersiva.</p>
-                  <a href="https://glowyskin.netlify.app/" title="Glowy Skin" target="_blank" class="preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="assets/img/glowy.jpg" title="Glowy Skin" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                   <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
@@ -183,13 +168,12 @@
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-ecommerce">
               <div class="portfolio-content h-100">
                 <div class="pf-thumb">
-                  <iframe src="https://groovestreet.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="Groove Street"></iframe>
-                  <div class="pf-thumb-emoji">🌿</div>
+                  <img src="assets/img/groove.jpg" alt="Groove Street">
                 </div>
                 <div class="portfolio-info">
                   <h4>Groove Street</h4>
                   <p>Smoke shop online con catálogo de productos, sistema de filtros, carrito de compras y experiencia de marca urbana auténtica.</p>
-                  <a href="https://groovestreet.netlify.app/" title="Groove Street" target="_blank" class="preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="assets/img/groove.jpg" title="Groove Street" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                   <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
@@ -199,13 +183,12 @@
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-plataforma">
               <div class="portfolio-content h-100">
                 <div class="pf-thumb">
-                  <iframe src="https://davana-group.odoo.com/" loading="lazy" sandbox="allow-same-origin" title="Davana Group"></iframe>
-                  <div class="pf-thumb-emoji">🏢</div>
+                  <img src="assets/img/davana.jpg" alt="Davana Group">
                 </div>
                 <div class="portfolio-info">
                   <h4>Davana Group</h4>
                   <p>Implementación ERP/CRM en Odoo para aseguradora en Puerto Rico. Automatización de procesos, integración de servicios y soporte.</p>
-                  <a href="https://davana-group.odoo.com/" title="Davana Group" target="_blank" class="preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="assets/img/davana.jpg" title="Davana Group" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                   <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
@@ -215,19 +198,18 @@
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-plataforma filter-ecommerce">
               <div class="portfolio-content h-100">
                 <div class="pf-thumb">
-                  <iframe src="https://lazonain.netlify.app/" loading="lazy" sandbox="allow-same-origin" title="La Zona In"></iframe>
-                  <div class="pf-thumb-emoji">🏠</div>
+                  <img src="assets/img/lazonain.jpg" alt="La Zona In">
                 </div>
                 <div class="portfolio-info">
                   <h4>La Zona In</h4>
                   <p>Sitio web para agencia inmobiliaria en Bogotá con estrategia de contenido en redes, modelos de inversión en finca raíz y transformación digital.</p>
-                  <a href="https://lazonain.netlify.app/" title="La Zona In" target="_blank" class="preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="assets/img/lazonain.jpg" title="La Zona In" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                   <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div>
 
-          </div><!-- End Portfolio Container -->
+          </div>
         </div>
       </div>
     </section>
@@ -267,21 +249,6 @@
   <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/js/main.js"></script>
-
-  <script>
-    /* Iframe fallback — si CORS bloquea, muestra el emoji */
-    document.querySelectorAll('.pf-thumb iframe').forEach(iframe => {
-      setTimeout(() => {
-        try {
-          const doc = iframe.contentDocument || iframe.contentWindow?.document;
-          if (!doc || !doc.body || doc.body.innerHTML.trim() === '') throw new Error();
-        } catch(e) {
-          const emoji = iframe.parentElement.querySelector('.pf-thumb-emoji');
-          if (emoji) { emoji.classList.add('show'); iframe.style.opacity = '0'; }
-        }
-      }, 3000);
-    });
-  </script>
 
 </body>
 </html>

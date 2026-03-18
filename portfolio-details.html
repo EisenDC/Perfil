@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Más Info — Eisen Campos</title>
-  <meta name="description" content="Servicios, portafolio, clientes y métodos de contacto de Eisen Campos.">
+  <meta name="description" content="">
   <meta name="keywords" content="">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Fonts (igual que el resto del sitio) -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -28,70 +28,57 @@
   <link href="assets/css/main.css" rel="stylesheet">
 
   <style>
-    /* ─────────────────────────────────────────────
-       Solo CSS para componentes nuevos que no
-       existen en main.css. Todo lo demás usa las
-       clases del template tal cual.
-    ───────────────────────────────────────────── */
+    /* ── Solo CSS para componentes que no existen en main.css ── */
 
-    /* Vista previa iframe en tarjetas de clientes */
+    /* Preview iframe en tarjetas de clientes */
     .client-preview {
       position: relative;
-      width: 100%;
-      height: 180px;
-      overflow: hidden;
-      background: #1a1a2e;
+      width: 100%; height: 180px;
+      overflow: hidden; background: #12151e;
     }
     .client-preview iframe {
-      width: 200%;
-      height: 200%;
-      transform: scale(0.5);
-      transform-origin: top left;
-      border: none;
-      pointer-events: none;
-      transition: transform 0.8s ease;
+      width: 200%; height: 200%;
+      transform: scale(0.5); transform-origin: top left;
+      border: none; pointer-events: none;
+      transition: transform 0.9s ease;
     }
     .client-card:hover .client-preview iframe {
       transform: scale(0.5) translateY(-8%);
     }
     .client-preview-fade {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, transparent 30%, rgba(26,26,46,0.95) 100%);
-      z-index: 1;
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to bottom, transparent 25%, rgba(0,0,0,0.85) 100%);
     }
     .live-badge {
-      position: absolute;
-      top: 8px; right: 8px; z-index: 2;
-      font-size: 0.65rem;
-      padding: 2px 8px; border-radius: 20px;
-      background: rgba(0,0,0,0.5);
-      color: #18d26e;
+      position: absolute; top: 8px; right: 8px; z-index: 2;
+      font-size: 0.65rem; padding: 2px 9px; border-radius: 20px;
+      background: rgba(0,0,0,0.55); color: #18d26e;
       border: 1px solid rgba(24,210,110,0.4);
       font-weight: 600; letter-spacing: 0.08em;
-      display: flex; align-items: center; gap: 4px;
+      display: flex; align-items: center; gap: 5px;
     }
     .live-badge::before {
-      content: ''; width: 5px; height: 5px;
-      border-radius: 50%; background: #18d26e;
-      animation: blink 1.5s infinite;
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: #18d26e; animation: liveblink 1.5s infinite;
     }
-    @keyframes blink {
-      0%,100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
+    @keyframes liveblink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
     .client-card {
       display: block; text-decoration: none; color: inherit;
-      border-radius: 8px; overflow: hidden;
+      border-radius: 6px; overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s;
     }
-    .client-card:hover { transform: translateY(-5px); text-decoration: none; color: inherit; }
+    .client-card:hover {
+      transform: translateY(-4px);
+      text-decoration: none; color: inherit;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    }
 
     /* Grid portafolio asimétrico */
     .pf-grid {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      grid-auto-rows: 210px;
+      grid-auto-rows: 200px;
       gap: 1rem;
     }
     .pf-grid .pf-card { position: relative; overflow: hidden; border-radius: 8px; }
@@ -107,7 +94,7 @@
       width: 250%; height: 250%;
       transform: scale(0.4); transform-origin: top left;
       border: none; pointer-events: none;
-      transition: transform 1s ease, filter 0.6s;
+      transition: transform 1s ease, filter 0.5s;
       filter: brightness(0.75);
     }
     .pf-card:hover .pf-frame iframe {
@@ -118,17 +105,17 @@
       position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center;
       font-size: 3.5rem; background: #12151e;
-      opacity: 0; transition: opacity 0.3s;
+      opacity: 0; transition: opacity 0.3s; z-index: 1;
     }
     .pf-emoji-fallback.show { opacity: 1; }
 
     .pf-overlay {
       position: absolute; inset: 0; z-index: 2;
-      background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 40%, transparent 70%);
+      background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.35) 40%, transparent 70%);
       transition: background 0.3s;
     }
     .pf-card:hover .pf-overlay {
-      background: linear-gradient(to top, rgba(0,0,0,0.97) 0%, rgba(0,0,0,0.65) 50%, rgba(0,0,0,0.1) 80%);
+      background: linear-gradient(to top, rgba(0,0,0,0.97) 0%, rgba(0,0,0,0.6) 48%, rgba(0,0,0,0.1) 80%);
     }
     .pf-topbar {
       position: absolute; top: 0; left: 0; right: 0; height: 3px;
@@ -142,11 +129,13 @@
       position: absolute; bottom: 0; left: 0; right: 0;
       z-index: 3; padding: 1rem 1.25rem;
     }
-    .pf-info h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0; }
-    .pf-info .pf-desc {
+    .pf-info h3 {
+      font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0;
+    }
+    .pf-desc {
       font-size: 0.8rem; color: rgba(255,255,255,0.65); line-height: 1.5;
-      max-height: 0; overflow: hidden; opacity: 0;
-      transition: max-height 0.4s ease, opacity 0.4s; margin-top: 0.3rem;
+      max-height: 0; overflow: hidden; opacity: 0; margin-top: 0.3rem;
+      transition: max-height 0.4s ease, opacity 0.4s;
     }
     .pf-card:hover .pf-desc { max-height: 80px; opacity: 1; }
 
@@ -163,20 +152,25 @@
     .pf-visit:hover { background: #18d26e; color: #000; }
     .pf-card.hidden { display: none !important; }
 
-    /* Filtros */
-    .pf-filters {
-      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;
+    /* Filtros — misma estética que los filtros de portfolio.html */
+    .pf-filters-row {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-bottom: 1.5rem; justify-content: center;
     }
-    .pf-filters button {
+    .pf-filters-row button {
       font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em;
       text-transform: uppercase; padding: 0.38rem 1rem; border-radius: 50px;
       border: 1px solid rgba(255,255,255,0.15);
       background: transparent; color: rgba(255,255,255,0.5); cursor: pointer;
       transition: all 0.25s;
     }
-    .pf-filters button:hover { border-color: var(--accent-color,#18d26e); color: var(--accent-color,#18d26e); }
-    .pf-filters button.active {
-      background: var(--accent-color,#18d26e); border-color: var(--accent-color,#18d26e);
+    .pf-filters-row button:hover {
+      border-color: var(--accent-color,#18d26e);
+      color: var(--accent-color,#18d26e);
+    }
+    .pf-filters-row button.active {
+      background: var(--accent-color,#18d26e);
+      border-color: var(--accent-color,#18d26e);
       color: #000; font-weight: 700;
     }
 
@@ -187,9 +181,9 @@
     }
     .pay-item:last-child { border-bottom: none; }
     .pay-icon {
-      width: 36px; height: 36px; border-radius: 8px;
+      width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; flex-shrink: 0; background: rgba(255,255,255,0.07);
+      font-size: 1.1rem; background: rgba(255,255,255,0.07);
     }
     .pay-label {
       font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
@@ -199,17 +193,18 @@
       font-family: 'Courier New', monospace; font-size: 0.82rem;
       color: rgba(255,255,255,0.85); word-break: break-all;
     }
-    .pay-value.normal { font-family: inherit; font-size: 0.9rem; color: #fff; }
+    .pay-value.plain { font-family: inherit; font-size: 0.9rem; color: #fff; }
 
-    /* Responsive portafolio */
+    /* Responsive grid */
     @media (max-width: 992px) {
-      .pf-grid { grid-template-columns: repeat(2,1fr); grid-auto-rows: 230px; }
+      .pf-grid { grid-template-columns: repeat(2,1fr); grid-auto-rows: 220px; }
       .pf-grid .pf-card { grid-column: span 1 !important; grid-row: span 1 !important; }
     }
     @media (max-width: 576px) {
-      .pf-grid { grid-template-columns: 1fr; grid-auto-rows: 250px; }
+      .pf-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
     }
   </style>
+
 </head>
 
 <body class="portfolio-details-page">
@@ -224,7 +219,7 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="resume.html">Resume</a></li>
-          <li><a href="services.html">Certifications</a></li>
+          <li><a href="services.html">certifications</a></li>
           <li><a href="portfolio.html">Portfolio</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
@@ -235,7 +230,7 @@
 
   <main class="main">
 
-    <!-- Page Title — estructura exacta del template -->
+    <!-- Page Title — idéntico al original -->
     <div class="page-title" data-aos="fade">
       <div class="heading">
         <div class="container">
@@ -251,17 +246,17 @@
         <div class="container">
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li class="current">Más Info</li>
+            <li class="current">More Info</li>
           </ol>
         </div>
       </nav>
     </div>
 
-    <!-- ═══════════════════════════════════════
+    <!-- ══════════════════════════════════════
          CLIENTES
-    ═══════════════════════════════════════ -->
-    <section id="clientes" class="section">
-      <div class="container" data-aos="fade-up">
+    ══════════════════════════════════════ -->
+    <section id="clientes" class="portfolio-details section">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
 
         <div class="section-title">
           <h2>Clientes</h2>
@@ -270,9 +265,10 @@
 
         <div class="row gy-4">
 
+          <!-- Davana Group -->
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
             <a href="https://davana-group.odoo.com/" target="_blank" class="client-card">
-              <div class="portfolio-info" style="padding:0; border-radius:8px; overflow:hidden;">
+              <div class="portfolio-info" style="padding:0; overflow:hidden; border-radius:6px;">
                 <div class="client-preview">
                   <iframe src="https://davana-group.odoo.com/" loading="lazy" sandbox="allow-same-origin" title="Davana Group"></iframe>
                   <div class="client-preview-fade"></div>
@@ -290,9 +286,10 @@
             </a>
           </div>
 
+          <!-- La Zona In -->
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
             <a href="https://www.lazonain.com/" target="_blank" class="client-card">
-              <div class="portfolio-info" style="padding:0; border-radius:8px; overflow:hidden;">
+              <div class="portfolio-info" style="padding:0; overflow:hidden; border-radius:6px;">
                 <div class="client-preview">
                   <iframe src="https://www.lazonain.com/" loading="lazy" sandbox="allow-same-origin" title="La Zona In"></iframe>
                   <div class="client-preview-fade"></div>
@@ -314,23 +311,22 @@
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════
-         PORTAFOLIO
-    ═══════════════════════════════════════ -->
-    <section id="portafolio" class="section dark-background">
-      <div class="container" data-aos="fade-up">
+    <!-- ══════════════════════════════════════
+         PORTAFOLIO COMPLETO
+    ══════════════════════════════════════ -->
+    <section id="portafolio" class="portfolio section dark-background">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
 
         <div class="section-title">
           <h2>Portafolio</h2>
           <p>Proyectos que hemos construido</p>
         </div>
 
-        <p class="text-center mb-4" style="color:rgba(255,255,255,0.55); font-size:0.95rem;">
-          Desde plataformas fintech y comunidades de trading hasta e-commerce de lujo.<br>
-          Pasa el cursor sobre cada proyecto para ver más.
+        <p class="text-center mb-4" style="color:rgba(255,255,255,0.5); font-size:0.92rem;">
+          Pasa el cursor sobre cada proyecto para ver más detalles.
         </p>
 
-        <div class="pf-filters justify-content-center" data-aos="fade-up" data-aos-delay="50">
+        <div class="pf-filters-row" data-aos="fade-up" data-aos-delay="50">
           <button class="active" onclick="filterPF('all',this)">Todos</button>
           <button onclick="filterPF('plataforma',this)">Plataformas</button>
           <button onclick="filterPF('ecommerce',this)">E-commerce</button>
@@ -338,7 +334,7 @@
           <button onclick="filterPF('fintech',this)">Fintech / IA</button>
         </div>
 
-        <div class="pf-grid mt-4" id="pfGrid" data-aos="fade-up" data-aos-delay="100">
+        <div class="pf-grid" id="pfGrid" data-aos="fade-up" data-aos-delay="100">
 
           <!-- Blue Sharks Trading -->
           <div class="pf-card" data-cat="comunidad fintech plataforma">
@@ -356,7 +352,7 @@
                 <span class="badge" style="background:rgba(24,210,110,0.15);color:#18d26e;font-size:.62rem;">IA</span>
               </div>
               <h3>Blue Sharks Trading</h3>
-              <p class="pf-desc">Copy trading, señales en vivo, mentoría, calculadora de riesgo, agentes IA, chatbot y mundo virtual 3D.</p>
+              <p class="pf-desc">Copy trading, señales en vivo, mentoría, calculadora de riesgo, agentes IA y mundo virtual 3D.</p>
             </div>
           </div>
 
@@ -463,10 +459,11 @@
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════
-         CONTACTO & PAGOS
-    ═══════════════════════════════════════ -->
-    <section id="contacto" class="section">
+    <!-- ══════════════════════════════════════
+         CONTACTO & MÉTODOS DE PAGO
+         — estructura original del template —
+    ══════════════════════════════════════ -->
+    <section id="contacto" class="portfolio-details section">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
         <div class="section-title">
@@ -476,8 +473,8 @@
 
         <div class="row gy-4">
 
-          <!-- Métodos de pago -->
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+          <!-- Métodos de pago — usa portfolio-info igual que el original -->
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
             <div class="portfolio-info">
               <h3>Métodos de Pago</h3>
 
@@ -485,7 +482,7 @@
                 <div class="pay-icon"><i class="bi bi-currency-dollar"></i></div>
                 <div>
                   <div class="pay-label">Transferencia</div>
-                  <div class="pay-value normal">USD · Solicitar datos por WhatsApp</div>
+                  <div class="pay-value plain">USD · Consultar por WhatsApp</div>
                 </div>
               </div>
 
@@ -509,7 +506,7 @@
                 <div class="pay-icon" style="color:#25d366;"><i class="bi bi-whatsapp"></i></div>
                 <div>
                   <div class="pay-label">WhatsApp</div>
-                  <div class="pay-value normal">
+                  <div class="pay-value plain">
                     <a href="https://api.whatsapp.com/send?phone=573507894900" style="color:#25d366;">+57 350 789 4900</a>
                   </div>
                 </div>
@@ -518,13 +515,13 @@
             </div>
           </div>
 
-          <!-- Mensaje + redes -->
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+          <!-- Descripción + redes — usa portfolio-description igual que el original -->
+          <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
             <div class="portfolio-description">
               <h2>Escríbeme para confirmar datos de pago</h2>
-              <p>Gracias por tu interés. Estoy disponible para cualquier consulta y con gusto exploraré cómo podemos trabajar juntos para alcanzar tus objetivos.</p>
+              <p>Gracias por tu interés. Estoy disponible para cualquier consulta y con gusto exploraré cómo podemos trabajar juntos para lograr tus objetivos.</p>
 
-              <!-- Social links — misma clase que usa el hero del index -->
+              <!-- social-links: misma clase que usa el hero del index.html -->
               <div class="social-links mt-3 mb-4">
                 <a href="https://api.whatsapp.com/send?phone=573507894900" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
                 <a href="https://t.me/+573507894900" title="Telegram"><i class="bi bi-telegram"></i></a>
@@ -533,8 +530,8 @@
               </div>
 
               <a href="https://api.whatsapp.com/send?phone=573507894900"
-                 class="btn btn-success d-flex align-items-center gap-2 justify-content-center"
-                 style="font-weight:700; border-radius:50px; padding:.75rem 1.5rem;"
+                 class="btn btn-success d-inline-flex align-items-center gap-2"
+                 style="font-weight:700; border-radius:50px; padding:.7rem 1.6rem;"
                  target="_blank">
                 <i class="bi bi-whatsapp fs-5"></i>
                 Iniciar conversación en WhatsApp
@@ -567,12 +564,9 @@
     </div>
   </footer>
 
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
-    <i class="bi bi-arrow-up-short"></i>
-  </a>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
   <div id="preloader"></div>
 
-  <!-- Vendor JS — exactamente los mismos del template -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
@@ -586,7 +580,7 @@
   <script src="assets/js/main.js"></script>
 
   <script>
-    /* ── Iframe fallback (CORS bloqueado = muestra emoji) ── */
+    /* Iframe fallback — si CORS bloquea el sitio, muestra emoji */
     document.querySelectorAll('iframe').forEach(iframe => {
       setTimeout(() => {
         try {
@@ -599,11 +593,11 @@
       }, 3000);
     });
 
-    /* ── Portfolio filter ── */
+    /* Portfolio filter */
     const pfSpans = [[7,2],[5,2],[4,2],[4,2],[4,2],[12,2]];
 
     function filterPF(cat, btn) {
-      document.querySelectorAll('.pf-filters button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.pf-filters-row button').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       document.querySelectorAll('.pf-card').forEach(card => {
         const cats = card.dataset.cat || '';
